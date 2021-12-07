@@ -9,11 +9,9 @@ import com.cogent.springbootrestdemo1.model.Product;
 import com.cogent.springbootrestdemo1.model.ProductRepository;
 
 @Service
-public class ProductService {
-
-	@Autowired
-	ProductRepository productrep;
-	public List<Product> retreiveDetails() {
-		return productrep.findAll();
-	}
+public interface ProductService {
+	List < Product > getAllProducts();
+    void saveEmployee(Product product);
+    Product getProductById(long id);
+    void deleteProductById(long id);
 }
