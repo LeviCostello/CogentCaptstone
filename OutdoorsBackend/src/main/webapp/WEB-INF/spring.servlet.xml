@@ -16,7 +16,7 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		name="viewResolver">
     	<property name="prefix" value="/WEB-INF/views/"/>
-    	<property name="suffix" value="ResponseEntity"/>
+    	<property name="suffix" value=".jsp"/>
     </bean>
     
     <!-- data source -->

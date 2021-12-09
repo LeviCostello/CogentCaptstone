@@ -31,31 +31,30 @@ import com.go.dao.MySqlOrderAdd;
 import com.go.dao.MySqlUser;
 import com.go.dao.MySqlUserImpl;
 import com.go.service.UserService;
+import com.go.service.UserServiceImpl;
 
 @CrossOrigin(origins="http://localhost:4200/")
 @RestController
 public class MainController {
+//	@Autowired
+//	private MySqlCart cart;
+//	@Autowired
+//	private MySqlCustomer customer;
+//	@Autowired
+//	private MySqlDelivery delivery;
+//	@Autowired
+//	private MySqlOrderAdd orderAdd;
+//	@Autowired
+//	private OrderBo order;
+//	@Autowired
+//	private ProductBo product;
 	@Autowired
-	private MySqlCart cart;
-	@Autowired
-	private MySqlCustomer customer;
-	@Autowired
-	private MySqlDelivery delivery;
-	@Autowired
-	private MySqlOrderAdd orderAdd;
-	@Autowired
-	private OrderBo order;
-	@Autowired
-	private ProductBo product;
-	@Autowired
-	private MySqlUser user;
+	private UserServiceImpl user;
 	
 	//User table controller
 	@GetMapping("/")
-	public String displayUser(Model m) throws Exception {
-		UserBo bo = user.dbSelect(101);
-		m.addAttribute("users", bo);
-		return "table_check";
+	public String index() {
+		return "Greetings from Spring Boot!";
 	}
 	
 	//@PostMapping("/")
