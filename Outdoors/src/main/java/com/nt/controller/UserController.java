@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nt.model.CartBO;
-import com.nt.model.CustomerBo;
-import com.nt.model.DeliveryBo;
-import com.nt.model.OrderBo;
-import com.nt.model.ProductBo;
-import com.nt.model.UserBo;
+import com.nt.model.Cart;
+import com.nt.model.CustomerQuery;
+import com.nt.model.DeliveryAddress;
+import com.nt.model.Order;
+import com.nt.model.Product;
+import com.nt.model.User;
 import com.nt.service.impl.ServiceImpl;
 
 @RestController
@@ -35,9 +35,9 @@ public class UserController {
 	@PostMapping("/addCart")
 	public ResponseEntity<String> addCart(@RequestParam("productId") int productId,
     		@RequestParam("price") int price, @RequestParam("userId") int userId) {
-		ProductBo product = service.getProductById(productId).get(0);
-		UserBo user = service.getUser(userId);
-		CartBO cart = new CartBO(user, product, 1, price);
+		Product product = service.getProductById(productId).get(0);
+		User user = service.getUser(userId);
+		Cart cart = new Cart(user, product, 1, price);
         service.saveCart(cart);
         return new ResponseEntity<>("Cart #" + cart.getCartId() + " was saved.", HttpStatus.OK);
     }
@@ -61,66 +61,66 @@ public class UserController {
 	
 	//add customer
 	@PostMapping("/addCustomer")
-    public ResponseEntity<String> addQuery(@RequestBody CustomerBo query) {
+    public ResponseEntity<String> addQuery(@RequestBody CustomerQuery query) {
         service.saveCustomer(query);
         return new ResponseEntity<>("Query from Customer " + query.getCustId() + " was created.", HttpStatus.OK);
     }
 	//add delivery
 	@PostMapping("/addDelivery")
-	public ResponseEntity<String> addAddress(@RequestBody DeliveryBo address) {
+	public ResponseEntity<String> addAddress(@RequestBody DeliveryAddress address) {
         service.saveDelivery(address);
-        return new ResponseEntity<>("Delivery address #" + address.getAddId() + " was added.", HttpStatus.OK);
+        return new ResponseEntity<>("Delivery address #" + address.getAddressId() + " was added.", HttpStatus.OK);
     }
 	//add order
 	@PostMapping("/addOrder")
-    public ResponseEntity<String> addOrder(@RequestBody OrderBo order) {
+    public ResponseEntity<String> addOrder(@RequestBody Order order) {
         service.saveOrder(order);
         return new ResponseEntity<>("Order " + order.getOrderId() + " was placed.", HttpStatus.OK);
     }
 	//add product
 	@PostMapping("/addProduct")
-	public ResponseEntity<String> addProduct(@RequestBody ProductBo product) {
+	public ResponseEntity<String> addProduct(@RequestBody Product product) {
         service.saveProduct(product);
-        return new ResponseEntity<>(product.getProdName() + " was added.", HttpStatus.OK);
+        return new ResponseEntity<>(product.getProductName() + " was added.", HttpStatus.OK);
     }
 	//add user
 	@PostMapping("/addUser")
-	public ResponseEntity<String> addUser(@RequestBody UserBo user) {
+	public ResponseEntity<String> addUser(@RequestBody User user) {
         service.saveUser(user);
-        return new ResponseEntity<>(user.getFName() + " was added.", HttpStatus.OK);
+        return new ResponseEntity<>(user.getFirstName() + " was added.", HttpStatus.OK);
     }
 	
 	//Getting the Entities
 	//get the cart by user
 	@GetMapping("/getCart")
-	public List<CartBO> getCart(@RequestParam("userId") int userId)
+	public List<Cart> getCart(@RequestParam("userId") int userId)
 	{
-		List<CartBO> cartContents = service.getCartByUserId(userId);
+		List<Cart> cartContents = service.getCartByUserId(userId);
 		return cartContents;
 	}
 	//get all the carts
 	@GetMapping("/getAllCarts")
-	public List<CartBO> getCartList(){
+	public List<Cart> getCartList(){
 		return service.getCarts();
 	}
 	//get the cart by id
 	@GetMapping("/getCartById")
-	public List<CartBO> getCartById(@RequestParam("cartId") int cartId){
+	public List<Cart> getCartById(@RequestParam("cartId") int cartId){
 		return service.getCart(cartId);
 	}
 	//get all products
 	@GetMapping("/findAllProducts")
-	public List<ProductBo> getProductList(){
+	public List<Product> getProductList(){
 		return service.getProducts();
 	}
 	//get product by category
 	@GetMapping("/findProductsByCategory")
-	public List<ProductBo> getProductsByCategory(@RequestParam("category") String category){
+	public List<Product> getProductsByCategory(@RequestParam("category") String category){
 		return service.getProduct(category);
 	}
 	//get product by id
 	@GetMapping("/findProductsById")
-	public List<ProductBo> getProductsById(@RequestParam("id") int id){
+	public List<Product> getProductsById(@RequestParam("id") int id){
 
 		return service.getProductById(id);
 	}
@@ -129,7 +129,7 @@ public class UserController {
 	//delete Cart
 	@DeleteMapping("/deleteCart")
 	public ResponseEntity<String> deleteCart(@RequestParam("cartId") int cartId){
-		CartBO cart = service.getCart(cartId).get(0);
+		Cart cart = service.getCart(cartId).get(0);
 		service.deleteCart(cart);
 		return new ResponseEntity<>("Cart #" + cartId + " was deleted.", HttpStatus.OK);
 	}
