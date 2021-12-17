@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Cart } from 'src/app/common/cart';
 import { NtServiceService } from 'src/app/services/nt-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { Product } from 'src/app/common/product';
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
+  selector: 'app-cartedit',
+  templateUrl: './cartedit.component.html',
+  styleUrls: ['./cartedit.component.css'],
 })
-export class CartComponent implements OnInit {
-  cart: Cart;
-  cartId: number;
-  userId: number;
-  cartList: Cart[];
+export class CarteditComponent implements OnInit {
+  id: number | any;
+  cart: Cart | any;
+  product: Product | any;
+  quantity: number | any;
+  message: String | any;
+  cartId: number | any;
+  userId: number | any;
+  cartList: Cart[] | any;
+
   constructor(private gs: NtServiceService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -24,6 +30,21 @@ export class CartComponent implements OnInit {
       else this.viewCarts();
     });
   }
+
+  changeCart() {
+    this.gs
+      .changeCart(this.product.productId, this.quantity, this.cart.cartId)
+      .subscribe((data) => {
+        this.message = data;
+      });
+  }
+
+  deleteCart() {
+    this.gs.deleteCart(this.cart.cartId).subscribe((data) => {
+      this.message = data;
+    });
+  }
+
   viewCarts() {
     this.gs.getCarts().subscribe((data) => {
       this.cartList = data;

@@ -28,6 +28,12 @@ import { FormsModule } from '@angular/forms';
 import { authInterceptorProviders } from './_helpers/auth-interceptor';
 import { AddressComponent } from './components/address/address.component';
 import { QueryComponent } from './components/query/query.component';
+import { CategoryComponent } from './components/category/category.component';
+import { CarteditComponent } from './components/cartedit/cartedit.component';
+import { OrderingComponent } from './components/ordering/ordering.component';
+import { ProductaddComponent } from './components/productadd/productadd.component';
+import { ProductinfoComponent } from './components/productinfo/productinfo.component';
+import { UserComponent } from './components/user/user.component';
 
 const route: Routes = [
   //{ path: 'categories/:categoryName', component: ProductViewComponent },
@@ -65,6 +71,12 @@ const route: Routes = [
     RegisterComponent,
     AddressComponent,
     QueryComponent,
+    CategoryComponent,
+    CarteditComponent,
+    OrderingComponent,
+    ProductaddComponent,
+    ProductinfoComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
